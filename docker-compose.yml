@@ -6,7 +6,7 @@ services:
     command: >-
       http://chain.blockchainlandscape.com:9000/register
       -X POST
-      -d '{"alias":"Acme Agent","seed":"acme_seed_0000000000000000000001","role":"TRUST_ANCHOR"}'
+      -d '{"alias":"Workshop Acme Agent","seed":"acme_seed_0000000000000000000001","role":"TRUST_ANCHOR"}'
 
   acme-aca-py:
     image: bcgovimages/aries-cloudagent:py36-1.11-1_0.4.0
@@ -16,7 +16,7 @@ services:
     ports:
       - "6002:6002"
       - "6000"
-    entrypoint: /bin/bash -c 'export DOMAIN=$$(curl -s acme-aca-py-tunnel-http:4040/api/tunnels/command_line | grep -o "https:\/\/.*\.eu\.ngrok\.io") && aca-py start --endpoint "$$DOMAIN" --admin 0.0.0.0 6002 --admin-insecure-mode --label "Acme Agent" --inbound-transport http 0.0.0.0 6000 --outbound-transport http --outbound-transport ws --genesis-url http://chain.blockchainlandscape.com:9000/genesis --wallet-type indy --wallet-name "Acme Wallet" --wallet-key AcmeWallet0000000 --seed acme_seed_0000000000000000000001'
+    entrypoint: /bin/bash -c 'export DOMAIN=$$(curl -s acme-aca-py-tunnel-http:4040/api/tunnels/command_line | grep -o "https:\/\/.*\.eu\.ngrok\.io") && aca-py start --endpoint "$$DOMAIN" --admin 0.0.0.0 6002 --admin-insecure-mode --label "Workshop Acme Agent" --inbound-transport http 0.0.0.0 6000 --outbound-transport http --outbound-transport ws --genesis-url http://chain.blockchainlandscape.com:9000/genesis --wallet-type indy --wallet-name "Acme Wallet" --wallet-key AcmeWallet0000000 --seed acme_seed_0000000000000000000001'
 
   acme-aca-py-tunnel-http:
     image: wernight/ngrok
@@ -32,7 +32,7 @@ services:
     command: >-
       http://chain.blockchainlandscape.com:9000/register
       -X POST
-      -d '{"alias":"Faber Agent","seed":"faber_seed_000000000000000000001","role":"TRUST_ANCHOR"}'
+      -d '{"alias":"Workshop Faber Agent","seed":"faber_seed_000000000000000000001","role":"TRUST_ANCHOR"}'
 
   faber-aca-py:
     image: bcgovimages/aries-cloudagent:py36-1.11-1_0.4.0
@@ -42,7 +42,7 @@ services:
     ports:
       - "7002:7002"
       - "7000"
-    entrypoint: /bin/bash -c 'export DOMAIN=$$(curl -s faber-aca-py-tunnel-http:4040/api/tunnels/command_line | grep -o "https:\/\/.*\.eu\.ngrok\.io") && aca-py start --endpoint "$$DOMAIN" --admin 0.0.0.0 6002 --admin-insecure-mode --label "Faber Agent" --inbound-transport http 0.0.0.0 6000 --outbound-transport http --outbound-transport ws --genesis-url http://chain.blockchainlandscape.com:9000/genesis --wallet-type indy --wallet-name "Faber Wallet" --wallet-key FaberWallet000000 --seed faber_seed_000000000000000000001'
+    entrypoint: /bin/bash -c 'export DOMAIN=$$(curl -s faber-aca-py-tunnel-http:4040/api/tunnels/command_line | grep -o "https:\/\/.*\.eu\.ngrok\.io") && aca-py start --endpoint "$$DOMAIN" --admin 0.0.0.0 7002 --admin-insecure-mode --label "Workshop Faber Agent" --inbound-transport http 0.0.0.0 7000 --outbound-transport http --outbound-transport ws --genesis-url http://chain.blockchainlandscape.com:9000/genesis --wallet-type indy --wallet-name "Faber Wallet" --wallet-key FaberWallet000000 --seed faber_seed_000000000000000000001'
 
   faber-aca-py-tunnel-http:
     image: wernight/ngrok
