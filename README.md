@@ -77,6 +77,8 @@ cd hyperledger-aries-workshop
 docker-compose up
 ```
 
+> On Windows be sure to use Powershell, not Git Bash
+
 A SwaggerUI instance will be started for both Faber (http://localhost:7002) and ACME (http://localhost:6002). This shows all the endpoints that are exposed by the Cloud Agent. We can also directly make calls to the Cloud Agent from within the SwaggerUI
 
 ## Replace Faber
