@@ -1,6 +1,6 @@
 # Hyperledger Aries Workshop
 
-Let's get to work. First we are going to do a small setup. If thats is done we are going to do the demo we just showed you ourselves. Finally we are going to recreate the actions the Faber and ACME sites makes ourselves, with our own Cloud Agent.
+Let's get to work. First we are going to do a small setup. If thats is done we are going to do the demo we just showed you ourselves. Finally we are going to recreate the actions the Faber and ACME sites make ourselves, with our own Cloud Agent.
 
 ## Setup
 
@@ -110,7 +110,7 @@ In there click `Try it out`. Then in the `accept` field type `auto`. This will a
 }
 ```
 
-Copy the `connection_id` value someplace, we are going to need this to issue the credential to the esatus Wallet. Now we need to generate a QR from the `invitation_url` parameter. You can do this anyway you like, I used: https://www.webtoolkitonline.com/qrcode-generator.html. Scan the QR with the esatus Wallet and accept the connection. Step 1 done!
+Copy the `connection_id` value someplace, we are going to need this to issue the credential to the esatus Wallet. Now we need to generate a QR from the `invitation_url` parameter. Copy the `invitation_url` parameter to this site: https://www.webtoolkitonline.com/qrcode-generator.html, scan the QR with the esatus Wallet and accept the connection. Step 1 done!
 
 ### Create Schema
 
@@ -165,7 +165,7 @@ Be sure the replace the following values:
 
 - `connection_id`: `connection_id` value from first step
 - `cred_def_id`: `credential_definition_id` value from previous step
-- `attributes.value`: You can change the values of `first_name`, `last_name` and `degree` to anything you like. Make sure to use something different than during the DEMO
+- `attributes.value`: You can change the values of `first_name`, `last_name` and `degree` to anything you like. Make sure to use something different than during the demo. This will make it easier to distinguish the credential in the wallet in the next steps.
 
 ```json
 {
@@ -195,7 +195,7 @@ After executing the API call, check your esatus Wallet and wait for a Credential
 
 ### Test it with ACME Demo
 
-Follow the ACME demo again (https://demo.blockchainlandscape.com/acme). Because we now have two credential stating our name and degree, we can choose which one to share. If the latest is not selected automatically you can change it by pressing on the current value (see picture below).
+Follow the ACME demo again (https://demo.blockchainlandscape.com/acme). Because we now have two credentials that contain our name and degree, we can choose which one to share. If the latest is not selected automatically you can change it by pressing on the current value (see picture below).
 
 ![](assets/send_proof_multiple_options.png)
 
