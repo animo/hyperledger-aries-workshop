@@ -203,23 +203,40 @@ Follow the ACME demo again (https://demo.blockchainlandscape.com/acme). Because 
 
 ### Create Connection with ACME
 
-- create invitation (auto)
-  http://localhost:6002/api/doc#/connection/post_connections_create_invitation
-- create qr from invitation url
-  https://www.webtoolkitonline.com/qrcode-generator.html
-- scan qr with esatus wallet
+When applying for a job at ACME we also created a connection. Again, create an invitation, set the `accept` field to `auto`, copy the `connection_id` from the response somewhere, and create a QR from the `invitation_url`.
 
-copy connection id: 9e34b4bc-549b-4f54-b80a-1c38567482f0
+http://localhost:6002/api/doc#/connection/post_connections_create_invitation
+
+response:
+
+```json
+{
+  "connection_id": "3dd081cd-9dd3-45d5-a50b-acf618016232",
+  "invitation": {
+    "@type": "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/connections/1.0/invitation",
+    "@id": "806de82c-0432-4c3f-85e6-322b74019289",
+    "serviceEndpoint": "https://c59ed6b5.eu.ngrok.io",
+    "recipientKeys": ["6UvLaUkR16nQLk8ej7M7cpapHHE81w9ZbArmELK6ykcS"],
+    "label": "Workshop Acme Agent"
+  },
+  "invitation_url": "https://c59ed6b5.eu.ngrok.io?c_i=eyJAdHlwZSI6ICJkaWQ6c292OkJ6Q2JzTlloTXJqSGlxWkRUVUFTSGc7c3BlYy9jb25uZWN0aW9ucy8xLjAvaW52aXRhdGlvbiIsICJAaWQiOiAiODA2ZGU4MmMtMDQzMi00YzNmLTg1ZTYtMzIyYjc0MDE5Mjg5IiwgInNlcnZpY2VFbmRwb2ludCI6ICJodHRwczovL2M1OWVkNmI1LmV1Lm5ncm9rLmlvIiwgInJlY2lwaWVudEtleXMiOiBbIjZVdkxhVWtSMTZuUUxrOGVqN003Y3BhcEhIRTgxdzlaYkFybUVMSzZ5a2NTIl0sICJsYWJlbCI6ICJXb3Jrc2hvcCBBY21lIEFnZW50In0="
+}
+```
 
 ### Request proof
 
-http://localhost:6002/api/doc#/present-proof/post_present_proof_send_request
+Now we are going to request the proof of eduction from the connection we created between our ACME server and the esatus Wallet. Try out the `present-proof` POST `​/present-proof/send-request` (http://localhost:6002/api/doc#/present-proof/post_present_proof_send_request) and in the `body` field paste the JSON object below.
+
+Be sure the replace the following values:
+
+- `connection_id`: `connection_id` value from previous step
+- `cred_def_id`:`credential_definition_id` value from the credential definition you created with Faber. (All 3, first_name, last_name, degree)
 
 Presentatino Exchange ID: e86f3fef-bf1c-415d-b034-349de19fa852
 
 ```json
 {
-  "connection_id": "9e34b4bc-549b-4f54-b80a-1c38567482f0",
+  "connection_id": "3dd081cd-9dd3-45d5-a50b-acf618016232",
   "proof_request": {
     "requested_attributes": {
       "first_name": {
@@ -256,10 +273,17 @@ Presentatino Exchange ID: e86f3fef-bf1c-415d-b034-349de19fa852
 }
 ```
 
+Copy the `presentation_exchange_id` value from the response somewhere before proceeding. The esatus Wallet will now show a proof request. Choose the values you want to share and click send. Your ACME server now has the proof of eduction credential, the last step is to verify the credential.
+
 ### Verify Proof
 
-http://localhost:6002/api/doc#/present-proof/post_present_proof_records__pres_ex_id__verify_presentation
+The last step is to verify the proof of education credential we received in the previous step. Try out the `present-proof` POST `​/present-proof/records/{pres_ex_id}/verify-presentation` (http://localhost:6002/api/doc#/present-proof/post_present_proof_records__pres_ex_id__verify_presentation) and in the `pres_ex_id` field paste the `presentation_exchange_id` value from the previous step.
 
-state verified
+The response is a very large JSON object containing all cryptographic proof values. You should check two things:
+
+1. That the `state` field contains the value `verified`
+2. That the raw values are the same as the values you shared from the esatus Wallet. (see picture below)
 
 ![](assets/acme_verify_proof_raw_values.png)
+
+You now fully reconstructed the Faber and ACME demo, but without the graphical interface. Congratz!
