@@ -1,11 +1,12 @@
-version: "3"
+version: "3.5"
+
 services:
   acme-register-seed:
     image: byrnedo/alpine-curl
     command: >-
-      http://192.168.65.3:9000/register
+      ${LEDGER_URL}/register
       -X POST
-      -d '{"alias":"Workshop Acme Agent","seed":"acme_seed_0000000000000000000001","role":"TRUST_ANCHOR"}'
+      -d '{"alias":"${ACME_LABEL}","seed":"${ACME_SEED}","role":"TRUST_ANCHOR"}'
 
   acme-aca-py:
     build:
@@ -17,7 +18,7 @@ services:
     ports:
       - "6002:6002"
       - "6000"
-    entrypoint: /bin/bash -c 'export DOMAIN=$$(curl -s acme-aca-py-tunnel-http:4040/api/tunnels/command_line | grep -o "https:\/\/.*\.eu\.ngrok\.io") && aca-py start --endpoint "$$DOMAIN" --admin 0.0.0.0 6002 --admin-insecure-mode --label "Workshop Acme Agent" --inbound-transport acapy_plugin_toolbox.http_ws 0.0.0.0 6000 --outbound-transport http --genesis-url http://192.168.65.3:9000/genesis --wallet-type indy --wallet-name "Acme Wallet" --wallet-key AcmeWallet0000000 --seed acme_seed_0000000000000000000001 --plugin acapy_plugin_toolbox --auto-accept-requests --auto-ping-connection --auto-respond-credential-proposal --auto-respond-credential-offer --auto-respond-credential-request --auto-store-credential --auto-respond-presentation-proposal --auto-respond-presentation-request --auto-verify-presentation --invite --invite-role admin --invite-label "Acme Agent" --debug-connections --debug-credentials --debug-presentations --enable-undelivered-queue'
+    entrypoint: /bin/bash -c 'export DOMAIN=$$(curl -s acme-aca-py-tunnel-http:4040/api/tunnels/command_line | grep -o "https:\/\/.*\.eu\.ngrok\.io") && aca-py start --endpoint "$$DOMAIN" --admin 0.0.0.0 6002 --admin-insecure-mode --label "Workshop Acme Agent" --inbound-transport acapy_plugin_toolbox.http_ws 0.0.0.0 6000 --outbound-transport http --genesis-url ${LEDGER_URL}/genesis --wallet-type indy --wallet-name "Acme Wallet" --wallet-key AcmeWallet0000000 --seed ${ACME_SEED} --plugin acapy_plugin_toolbox --auto-accept-requests --auto-ping-connection --auto-respond-credential-proposal --auto-respond-credential-offer --auto-respond-credential-request --auto-store-credential --auto-respond-presentation-proposal --auto-respond-presentation-request --auto-verify-presentation --invite --invite-role admin --invite-label "${ACME_LABEL}" --debug-connections --debug-credentials --debug-presentations --enable-undelivered-queue'
 
   acme-aca-py-tunnel-http:
     image: wernight/ngrok
@@ -31,9 +32,9 @@ services:
   faber-register-seed:
     image: byrnedo/alpine-curl
     command: >-
-      http://192.168.65.3:9000/register
+      ${LEDGER_URL}/register
       -X POST
-      -d '{"alias":"Workshop Faber Agent","seed":"faber_seed_000000000000000000001","role":"TRUST_ANCHOR"}'
+      -d '{"alias":"${FABER_LABEL}","seed":"${FABER_SEED}","role":"TRUST_ANCHOR"}'
 
   faber-aca-py:
     build:
@@ -45,7 +46,7 @@ services:
     ports:
       - "7002:7002"
       - "7000"
-    entrypoint: /bin/bash -c 'export DOMAIN=$$(curl -s faber-aca-py-tunnel-http:4040/api/tunnels/command_line | grep -o "https:\/\/.*\.eu\.ngrok\.io") && aca-py start --endpoint "$$DOMAIN" --admin 0.0.0.0 7002 --admin-insecure-mode --label "Workshop Faber Agent" --inbound-transport acapy_plugin_toolbox.http_ws 0.0.0.0 7000 --outbound-transport http --genesis-url http://192.168.65.3:9000/genesis --wallet-type indy --wallet-name "Faber Wallet" --wallet-key FaberWallet0000000 --seed faber_seed_000000000000000000001 --plugin acapy_plugin_toolbox --auto-accept-requests --auto-ping-connection --auto-respond-credential-proposal --auto-respond-credential-offer --auto-respond-credential-request --auto-store-credential --auto-respond-presentation-proposal --auto-respond-presentation-request --auto-verify-presentation --invite --invite-role admin --invite-label "Faber Agent" --debug-connections --debug-credentials --debug-presentations --enable-undelivered-queue'
+    entrypoint: /bin/bash -c 'export DOMAIN=$$(curl -s faber-aca-py-tunnel-http:4040/api/tunnels/command_line | grep -o "https:\/\/.*\.eu\.ngrok\.io") && aca-py start --endpoint "$$DOMAIN" --admin 0.0.0.0 7002 --admin-insecure-mode --label "Workshop Faber Agent" --inbound-transport acapy_plugin_toolbox.http_ws 0.0.0.0 7000 --outbound-transport http --genesis-url ${LEDGER_URL}/genesis --wallet-type indy --wallet-name "Faber Wallet" --wallet-key FaberWallet0000000 --seed "${FABER_SEED}" --plugin acapy_plugin_toolbox --auto-accept-requests --auto-ping-connection --auto-respond-credential-proposal --auto-respond-credential-offer --auto-respond-credential-request --auto-store-credential --auto-respond-presentation-proposal --auto-respond-presentation-request --auto-verify-presentation --invite --invite-role admin --invite-label "${FABER_LABEL}" --debug-connections --debug-credentials --debug-presentations --enable-undelivered-queue'
 
   faber-aca-py-tunnel-http:
     image: wernight/ngrok
