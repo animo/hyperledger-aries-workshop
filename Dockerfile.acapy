@@ -9,7 +9,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 \
     && apt-get install -y libindy
 
 # RUN pip install git+https://github.com/hyperledger/aries-cloudagent-python.git@master#egg=aries-cloudagent
-RUN pip install aries-cloudagent
-RUN pip install git+https://github.com/hyperledger/aries-acapy-plugin-toolbox.git@master#egg=acapy-plugin-toolbox
+RUN pip install aries-cloudagent==0.5.3
+RUN pip install git+https://github.com/hyperledger/aries-acapy-plugin-toolbox.git@acapy053#egg=acapy-plugin-toolbox
 
 ENTRYPOINT [ "bash", "-c" ]
