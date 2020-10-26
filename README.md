@@ -1,20 +1,42 @@
 # Hyperledger Aries Workshop
 
-Let's get to work. First we are going to do a small setup. If thats is done we are going to do the demo we just showed you ourselves. Finally we are going to recreate the actions the Faber and ACME sites make ourselves, with our own Cloud Agent.
+> TODO: add workshop description
 
 ## Setup
 
-### Download esatus Wallet
+### Download Wallet
 
-We are going to use the esatus Wallet for this demo and workshop. The esatus Wallet is built upon [Aries Framework .NET](https://github.com/hyperledger/aries-framework-dotnet) and is free to use.
+You've got choice in the wallet you want to use. That's the awesomeness of Aries interoperability. All are [Aries Framework .NET](https://github.com/hyperledger/aries-framework-dotnet) and is free to use. The screenshots in this tutorial are from the the Trinsic wallet, but you can use any of them.
 
-![Download in Store QR](assets/download_store_qr.png)
+### Esatus Wallet
+
+![Download in Store QR](assets/esatus_download_store_qr.png)
 
 [![Download on App Store](assets/download_app_store.png)](https://apps.apple.com/nl/app/esatus-wallet/id1496769057?l=en)
 [![Download on Google Play](assets/download_google_play.png)](https://play.google.com/store/apps/details?id=com.esatus.wallet)
 
 - [iOS](https://apps.apple.com/nl/app/esatus-wallet/id1496769057?l=en)
 - [Android](https://play.google.com/store/apps/details?id=com.esatus.wallet)
+
+#### Trinsic Wallet
+
+![Download in Store QR](assets/trinsic_download_store_qr.png)
+
+[![Download on App Store](assets/download_app_store.png)](https://apps.apple.com/us/app/trinsic-wallet/id1475160728)
+[![Download on Google Play](assets/download_google_play.png)](https://play.google.com/store/apps/details?id=id.streetcred.apps.mobile)
+
+- [iOS](https://apps.apple.com/us/app/trinsic-wallet/id1475160728)
+- [Android](https://play.google.com/store/apps/details?id=id.streetcred.apps.mobile)
+
+#### Lissi Wallet
+
+![Download in Store QR](assets/lissi_download_store_qr.png)
+
+[![Download on App Store](assets/download_app_store.png)](https://apps.apple.com/us/app/lissi/id1501321092)
+[![Download on Google Play](assets/download_google_play.png)](https://play.google.com/store/apps/details?id=io.lissi.mobile)
+
+- [iOS](https://apps.apple.com/us/app/lissi/id1501321092)
+- [Android](https://play.google.com/store/apps/details?id=io.lissi.mobile)
 
 ### Add Ledger to App
 
@@ -279,7 +301,7 @@ Copy the `presentation_exchange_id` value from the response somewhere before pro
 
 ### Verify Proof
 
-The last step is to verify the proof of education credential we received in the previous step. Try out the `present-proof` POST `​/present-proof/records/{pres_ex_id}/verify-presentation` (http://localhost:6002/api/doc#/present-proof/post_present_proof_records__pres_ex_id__verify_presentation) and in the `pres_ex_id` field paste the `presentation_exchange_id` value from the previous step.
+The last step is to verify the proof of education credential we received in the previous step. Try out the `present-proof` POST `​/present-proof/records/{pres_ex_id}/verify-presentation` (http://localhost:6002/api/doc#/present-proof/post_present_proof_records**pres_ex_id**verify_presentation) and in the `pres_ex_id` field paste the `presentation_exchange_id` value from the previous step.
 
 The response is a very large JSON object containing all cryptographic proof values. You should check two things:
 

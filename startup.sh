@@ -1,0 +1,18 @@
+aca-py start \
+    --endpoint "${ENDPOINT}" "${ENDPOINT}/http/ws" \
+    --admin 0.0.0.0 ${ADMIN_PORT} \
+    --admin-insecure-mode \
+    --label $AGENT_NAME \
+    --inbound-transport acapy_plugin_toolbox.http_ws 0.0.0.0 ${PORT} \
+    --outbound-transport http \
+    --genesis-url ${LEDGER_URL}/genesis \
+    --wallet-type indy \
+    --seed ${SEED} \
+    --plugin acapy_plugin_toolbox \
+    --auto-accept-requests --auto-ping-connection \
+    --auto-respond-credential-proposal --auto-respond-credential-offer --auto-respond-credential-request --auto-store-credential \
+    --auto-respond-presentation-proposal --auto-respond-presentation-request --auto-verify-presentation \
+    --invite --invite-role admin --invite-label "${AGENT_NAME} (admin)" \
+    --debug-connections --debug-credentials --debug-presentations \
+    --preserve-exchange-records \
+    --log-level info
