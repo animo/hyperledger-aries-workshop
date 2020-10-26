@@ -15,4 +15,5 @@ aca-py start \
     --invite --invite-role admin --invite-label "${AGENT_NAME} (admin)" \
     --debug-connections --debug-credentials --debug-presentations \
     --preserve-exchange-records \
-    --log-level info
+    --log-level info \
+    --webhook-url "${WEBHOOK_URL}"
