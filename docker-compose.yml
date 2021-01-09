@@ -34,7 +34,7 @@ services:
   faber-agent:
     build: .
     depends_on:
-      - faber-webhook-relay
+      - faber-webhook-server
     environment:
       NGROK_NAME: faber-ngrok
       AGENT_NAME: "${FABER_LABEL}"
@@ -42,15 +42,14 @@ services:
       ADMIN_PORT: 3002
       SEED: "${FABER_SEED}"
       LEDGER_URL: "${LEDGER_URL}"
-      WEBHOOK_URL: http://faber-webhook-relay:8080
+      WEBHOOK_URL: http://faber-webhook-server:1080
     ports:
       - "3002:3002"
 
-  faber-webhook-relay:
-    image: karimstekelenburg/aries-cloudagent-webhook-relay:latest
+  faber-webhook-server:
+    image: ghcr.io/timoglastra/acapy-development-webhook-server
     ports:
-      - 8080:8080
-    command: --log DEBUG --api-key faber-api-key
+      - 1080:1080
 
   faber-ngrok:
     image: wernight/ngrok
